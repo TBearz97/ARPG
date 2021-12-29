@@ -54,7 +54,6 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(preformAttack.ReadValue<float>());
         if (preformAttack.WasPerformedThisFrame())
         {
             PreformWeaponAttack();
