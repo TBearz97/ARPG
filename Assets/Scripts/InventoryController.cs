@@ -6,7 +6,7 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     public PlayerWeaponController playerWeaponController;
-    public Item sword;
+    public Item gun;
     public PlayerControls playerControls;
     public InputAction equipWeapon;
 
@@ -21,7 +21,7 @@ public class InventoryController : MonoBehaviour
         playerWeaponController = GetComponent<PlayerWeaponController>();
         List<BaseStat> swordStats = new List<BaseStat>();
         swordStats.Add(new BaseStat(6, "Power", "Your power level"));
-        sword = new Item(swordStats, "sword");
+        gun = new Item(swordStats, "gun");
     }
 
     private void OnEnable()
@@ -37,7 +37,7 @@ public class InventoryController : MonoBehaviour
     private void Update()
     {
         if (equipWeapon.ReadValue<float>() == 1) {
-            playerWeaponController.EquipWeapon(sword);
+            playerWeaponController.EquipWeapon(gun);
         }
     }
 }

@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : MonoBehaviour, IWeapon
+public class Gun : MonoBehaviour, IWeapon, IProjectileWeapon
 {
-    private Animator animator;
+    public Animator animator;
+    public Transform ProjectileSpawn { get; set; }
     public List<BaseStat> Stats { get; set; }
+    Bullet bullet;
 
-    private void Start()
-    {
+
+    void Start() {
+        bullet = Resources.Load<Bullet>("Weapon/Prefabs/projectiles/bullet");
         animator = GetComponent<Animator>();
+    }
+
+    public void CastProjectile()
+    {
+        Bullet bulletInstance = (Bullet)Instantiate(bullet, ProjectileSpawn.position, ProjectileSpawn.rotation);
+        bulletInstance.Direction = ProjectileSpawn.forward;
     }
 
     public void PreformAttack()
     {
         animator.SetTrigger("Base_Attack");
-    }
-
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.tag == "Enemy") {
-            col.gameObject.GetComponent<IEnemy>().TakeDamage(5);
-        }
     }
 }

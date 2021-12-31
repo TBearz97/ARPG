@@ -10,6 +10,7 @@ public class PlayerWeaponController : MonoBehaviour
     private PlayerControls playerControls;
     private InputAction preformAttack;
 
+    Transform spawnProjectile;
     IWeapon equippedWeapon;
     CharacterStats characterStats;
 
@@ -31,6 +32,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Start()
     {
+        spawnProjectile = transform.Find("ProjectileSpawn");
         characterStats = GetComponent<CharacterStats>();
     }
 
@@ -41,9 +43,14 @@ public class PlayerWeaponController : MonoBehaviour
         }
         EquippedWeapon = (GameObject)Instantiate(Resources.Load<GameObject>("Weapon/" + "Prefabs/" + itemToEquip.ObjectSlug+ "/" + itemToEquip.ObjectSlug), playerHand.transform.position, playerHand.transform.rotation);
 
+
         equippedWeapon = EquippedWeapon.GetComponent<IWeapon>();
         equippedWeapon.Stats = itemToEquip.Stats;
 
+        if (EquippedWeapon.GetComponent<IProjectileWeapon>() != null)
+        {
+            EquippedWeapon.GetComponent<IProjectileWeapon>().ProjectileSpawn = spawnProjectile;
+        }
         EquippedWeapon.transform.SetParent(playerHand.transform);
         characterStats.AddStatBonus(itemToEquip.Stats);
     }
@@ -56,6 +63,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (preformAttack.WasPerformedThisFrame())
         {
+            Debug.Log("Attacked");
             PreformWeaponAttack();
         } 
     }
