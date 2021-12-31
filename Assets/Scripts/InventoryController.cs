@@ -7,6 +7,7 @@ public class InventoryController : MonoBehaviour
 {
     public PlayerWeaponController playerWeaponController;
     public Item gun;
+    public Item PotionLog;
     public PlayerControls playerControls;
     public InputAction equipWeapon;
 
@@ -22,6 +23,8 @@ public class InventoryController : MonoBehaviour
         List<BaseStat> swordStats = new List<BaseStat>();
         swordStats.Add(new BaseStat(6, "Power", "Your power level"));
         gun = new Item(swordStats, "gun");
+
+        PotionLog = new Item(new List<BaseStat>(), "potion_log", "Drink this to log something", "Drink", "Log Potion", false);
     }
 
     private void OnEnable()
@@ -38,6 +41,7 @@ public class InventoryController : MonoBehaviour
     {
         if (equipWeapon.ReadValue<float>() == 1) {
             playerWeaponController.EquipWeapon(gun);
+
         }
     }
 }

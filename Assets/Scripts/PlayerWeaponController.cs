@@ -49,6 +49,7 @@ public class PlayerWeaponController : MonoBehaviour
 
         if (EquippedWeapon.GetComponent<IProjectileWeapon>() != null)
         {
+            EquippedWeapon.transform.Rotate(new Vector3(90, 90, 90));
             EquippedWeapon.GetComponent<IProjectileWeapon>().ProjectileSpawn = spawnProjectile;
         }
         EquippedWeapon.transform.SetParent(playerHand.transform);
@@ -63,7 +64,6 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (preformAttack.WasPerformedThisFrame())
         {
-            Debug.Log("Attacked");
             PreformWeaponAttack();
         } 
     }

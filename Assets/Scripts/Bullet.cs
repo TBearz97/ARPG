@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        Range = 100f;
         spawnPosition = transform.position;
         GetComponent<Rigidbody>().AddForce(Direction * 50f);
     }
